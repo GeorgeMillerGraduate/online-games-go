@@ -1,0 +1,107 @@
+/* Jenga Code Go Studio: shared Chess design language, adapted for Go. */
+.go-board {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  isolation: isolate;
+  border-radius: 6px;
+  background: repeating-linear-gradient(2deg,transparent 0 9px,rgba(97,54,17,.055) 10px 11px,transparent 12px 18px),linear-gradient(120deg,#e5ba70,#cca15e 54%,#e5bc79);
+  box-shadow: inset 0 0 0 3px #ae7c38,inset 0 0 28px #8b591b44,0 12px 24px #0006;
+  touch-action: manipulation;
+}
+.grid-drawing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.grid-drawing line {
+  stroke: #634821;
+  stroke-width: 1.7;
+}
+.grid-drawing circle {
+  fill: #513d20;
+}
+.grid-drawing text {
+  font: 17px Consolas,monospace;
+  fill: #513c1d;
+}
+.intersection {
+  position: absolute;
+  transform: translate(-50%,-50%);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #031523;
+  font: 800 clamp(9px,1.2vw,16px) Consolas,monospace;
+}
+.intersection:focus-visible {
+  outline: 2px solid #007aa6;
+  outline-offset: 1px;
+  z-index: 3;
+}
+.stone {
+  box-shadow: 2px 3px 4px #0008;
+}
+.black,.preview-black {
+  background: radial-gradient(circle at 32% 26%,#5b5c60,#202125 37%,#090a0c 75%);
+}
+.white,.preview-white {
+  background: radial-gradient(circle at 32% 26%,#fff,#f1f0e9 50%,#b9bbb9 92%);
+}
+.preview-black,.preview-white {
+  opacity: .5;
+}
+.illegal:after {
+  content: "×";
+  color: #a31813;
+  font-size: 22px;
+  font-weight: 900;
+}
+.last:after {
+  content: "";
+  width: 24%;
+  height: 24%;
+  border: 2px solid #53d9ff;
+  border-radius: 50%;
+}
+.white.last:after {
+  border-color: #006c9b;
+}
+.dead {
+  opacity: .4;
+}
+.dead:before {
+  content: "×";
+  color: #ff5656;
+  font-size: 20px;
+}
+.territory:before,.ownership:before {
+  content: "";
+  width: 35%;
+  height: 35%;
+  border-radius: 2px;
+  background: #1b2535;
+}
+.territory.W:before {
+  background: #fff;
+  box-shadow: 0 0 0 1px #7d6739;
+}
+.ownership:before {
+  background: var(--ownership);
+  width: 65%;
+  height: 65%;
+}
+.suggestion {
+  background: #35d8ffd9 !important;
+  box-shadow: 0 0 0 1px #00476a;
+  opacity: 1 !important;
+  z-index: 2;
+}
+.suggestion:before {
+  display: none;
+}

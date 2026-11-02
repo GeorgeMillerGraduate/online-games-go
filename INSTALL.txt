@@ -1,0 +1,9 @@
+JENGA-CODE GO STUDIO — SHARED PUBLICATION DESIGN
+
+Extract the contents of this ZIP directly into public_html/apps/go/ and overwrite the old index.html, css, js and images. The ZIP opens directly to index.html and its folders; do not create another apps/go folder inside your existing go directory. Press Ctrl+F5 afterwards.
+
+Uses the exact shared compass SVG and Jenga-Code wordmark style from Chess and Route Explorer. Modes are on the left, board in the centre, setup on the right. Includes a new header illustration and retains the supplied landscape. Round stones, real board coordinates and existing engine connection are preserved. Connection messages remain below controls rather than covering the board.
+
+Default AI endpoint is unchanged: https://jenga-code.com/api/go. Previously saved engine addresses remain supported. This ZIP contains the frontend; leave your existing server installation in place.
+
+Verified in browser: local alternating moves, undo, 9/13/19 board sizes, two passes opening scoring, phone/tablet layouts without horizontal overflow. Live KataGo response could not be verified from the preview environment. All core rules, board, scoring and engine modules are byte-identical to the supplied version.

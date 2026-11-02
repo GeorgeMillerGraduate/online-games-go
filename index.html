@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en-GB" xmlns:ns0="http://www.w3.org/2000/xmlns/">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="Play, analyse and learn Go on Jenga Code. 9×9, 13×13 and 19×19 boards with optional KataGo analysis." name="description"/>
+  <title>
+   Go Studio | Jenga Code
+  </title>
+  <link href="https://jenga-code.com/apps/go/" rel="canonical"/>
+  <script type="application/ld+json">
+   {"@context": "https://schema.org", "@type": "WebPage", "name": "Go Studio | Jenga Code", "isPartOf": {"@type": "WebSite", "name": "Jenga Code", "url": "https://jenga-code.com/"}, "publisher": {"@type": "Person", "name": "George Miller", "url": "https://jenga-code.com/"}}
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="css/board.css?v=go-atlas-1" rel="stylesheet"/>
+  <link href="css/style.css?v=go-atlas-1" rel="stylesheet"/>
+ </head>
+ <body class="copper-go" data-publisher="true" id="top">
+  <a class="skip-link" href="#main">
+   Skip to content
+  </a>
+  <header class="site-header">
+   <a class="brand" href="/" aria-label="Jenga-Code homepage"><svg class="compass-mark" aria-hidden="true" viewBox="0 0 64 64" width="54" height="54"><circle cx="32" cy="32" r="23" fill="none" stroke="currentColor" stroke-width="1"/><path d="M32 2 38 26 62 32 38 38 32 62 26 38 2 32 26 26Z" fill="none" stroke="currentColor"/><path d="M32 7 32 32 26 26ZM57 32 32 32 38 26ZM32 57 32 32 38 38ZM7 32 32 32 26 38Z" fill="currentColor"/><circle cx="32" cy="32" r="3" fill="currentColor"/></svg><span>Jenga-Code<small>ALGORITHMS · GAMES · MATHEMATICAL IDEAS</small></span></a>
+   <nav aria-label="Main navigation">
+    <a href="/">
+     Home
+    </a>
+    <a href="/apps/" aria-current="page">
+     Applications
+    </a>
+    <a href="/blog/">
+     Journal
+    </a>
+    <a href="/qualifications/">
+     Qualifications
+    </a>
+   </nav>
+  </header>
+  <main class="page-shell" id="main" tabindex="-1">
+   <section aria-label="Go studio" class="studio" id="play">
+    <div class="arena">
+     <aside class="game-info"><div aria-label="Game mode" class="mode-tabs" role="group">
+        <button aria-pressed="true" class="active" data-mode="hh">
+         Over the board
+        </button>
+        <button aria-pressed="false" data-mode="ha">
+         Human vs AI
+        </button>
+        <button aria-pressed="false" data-mode="ah">
+         AI vs Human
+        </button>
+        <button aria-pressed="false" data-mode="aa">
+         AI vs AI
+        </button>
+       </div>
+      <img alt="Japanese pine above a lake, with mountain layers and copper sun" class="landscape" fetchpriority="high" height="1200" src="images/go-landscape.webp" width="800"/>
+      <div class="art-caption">
+       <h2>
+        A game of balance.
+       </h2>
+       <p>
+        Play, explore and think ahead.
+       </p>
+      </div>
+     </aside>
+     <div class="board-column">
+      <div class="app-intro">
+       <h1>
+        Go Studio
+       </h1>
+       <p>
+        Play Go against AI or share a board with a friend.
+       </p>
+      </div>
+      <div class="player-strip" id="black-player">
+       <i aria-hidden="true" class="player-stone black">
+       </i>
+       <div class="player-text">
+        <strong id="black-name">
+         Black · Human
+        </strong>
+       </div>
+       <span class="capture-count">
+        Captures
+        <b id="black-captures">
+         0
+        </b>
+       </span>
+      </div>
+      <div aria-label="Go board" class="go-board" id="go-board" role="group">
+      </div>
+      <div class="player-strip white-player" id="white-player">
+       <i aria-hidden="true" class="player-stone white">
+       </i>
+       <div class="player-text">
+        <strong id="white-name">
+         White · Human
+        </strong>
+        <small id="white-detail">
+         Komi 6.5
+        </small>
+       </div>
+       <span class="capture-count">
+        Captures
+        <b id="white-captures">
+         0
+        </b>
+       </span>
+      </div>
+<div class="view-tools"><button id="fullscreen" type="button" aria-label="Fullscreen board" title="Fullscreen board">⛶</button>
+        <button aria-label="Change workspace shade" aria-pressed="false" id="theme" title="Workspace shade">
+         ◐
+        </button>
+        <button aria-label="Toggle focus mode" aria-pressed="false" id="focus" title="Focus mode">
+         ⛶
+        </button>
+       </div><div class="board-note">
+       <span id="board-caption">
+        9×9 · Japanese
+       </span>
+       <span>
+        Stones on intersections
+       </span>
+      </div>
+      <section class="scoring-panel" hidden="" id="settlement">
+       <h3>
+        Agree the position
+       </h3>
+       <p class="micro">
+        Click dead groups to toggle them. Both players must agree before finalising. Mark seki regions neutral when necessary.
+       </p>
+       <label class="check">
+        <input id="neutral" type="checkbox"/>
+        Mark neutral territory / seki
+       </label>
+       <p class="score-line" id="score">
+       </p>
+       <div class="actions">
+        <button class="btn primary" id="finish">
+         Agree final score
+        </button>
+        <button class="btn" id="resume">
+         Resume play
+        </button>
+       </div>
+      </section>
+     </div>
+     <aside class="side-panel">
+      <div class="turn-heading">
+       <i aria-hidden="true" class="player-stone black" id="turn-stone">
+       </i>
+       <div aria-live="polite" class="status" id="status" role="status">
+        Black to play.
+       </div>
+      </div>
+      <h2>
+       Game setup
+      </h2>
+      <div class="fields">
+       <div>
+        <label for="size">
+         Board size
+        </label>
+        <select id="size">
+         <option value="9">
+          9 × 9
+         </option>
+         <option value="13">
+          13 × 13
+         </option>
+         <option value="19">
+          19 × 19
+         </option>
+        </select>
+       </div>
+       <div>
+        <label for="rules">
+         Scoring rules
+        </label>
+        <select id="rules">
+         <option value="japanese">
+          Japanese
+         </option>
+         <option value="chinese">
+          Chinese
+         </option>
+        </select>
+       </div>
+       <div>
+        <label for="komi">
+         Komi (White)
+        </label>
+        <input id="komi" max="50" min="-50" step="0.5" type="number" value="6.5"/>
+       </div>
+       <div>
+        <label for="handicap">
+         Handicap stones
+        </label>
+        <select id="handicap">
+         <option value="0">
+          Even game
+         </option>
+         <option value="2">
+          2 stones
+         </option>
+         <option value="3">
+          3 stones
+         </option>
+         <option value="4">
+          4 stones
+         </option>
+         <option value="5">
+          5 stones
+         </option>
+         <option value="6">
+          6 stones
+         </option>
+         <option value="7">
+          7 stones
+         </option>
+         <option value="8">
+          8 stones
+         </option>
+         <option value="9">
+          9 stones
+         </option>
+        </select>
+       </div>
+       <div>
+        <label for="colour">
+         Your colour
+        </label>
+        <select id="colour">
+         <option value="B">
+          Play Black
+         </option>
+         <option value="W">
+          Play White
+         </option>
+         <option value="random">
+          Random colour
+         </option>
+        </select>
+       </div>
+       <div>
+        <label for="strength">
+         Search budget
+        </label>
+        <select id="strength">
+         <option value="0">
+          Beginner · 16 visits
+         </option>
+         <option value="1">
+          Easy · 64
+         </option>
+         <option selected="" value="2">
+          Medium · 256
+         </option>
+         <option value="3">
+          Hard · 1,024
+         </option>
+         <option value="4">
+          Very hard · 4,096
+         </option>
+         <option value="5">
+          Maximum · 10,000
+         </option>
+        </select>
+       </div>
+      </div>
+      <div class="actions">
+       <button class="btn primary" id="new">
+        New game
+       </button>
+       <button class="btn" id="pass">
+        Pass turn
+       </button>
+       <button class="btn" id="undo">
+        Undo
+       </button>
+       <button class="btn danger" id="resign">
+        Resign
+       </button>
+       <button class="btn" id="ai-toggle">
+        Start AI
+       </button>
+       <button class="btn" id="export">
+        Export SGF
+       </button>
+      </div>
+      <div class="engine-indicator" role="status">
+       <span aria-hidden="true" class="orbit">
+        <i>
+        </i>
+       </span>
+       <div>
+        <strong id="activity-title">
+         Local play ready
+        </strong>
+        <small id="activity-detail">
+         Checking the AI connection…
+        </small>
+       </div>
+      </div>
+      <div class="stats">
+       <div>
+        Move
+        <b id="move-number">
+         0
+        </b>
+       </div>
+       <div>
+        Turn
+        <b id="turn">
+         Black
+        </b>
+       </div>
+       <div>
+        Passes
+        <b id="passes">
+         0 / 2
+        </b>
+       </div>
+      </div>
+      <p class="micro" id="game-status">
+       Playing
+      </p>
+      <h2>
+       Move history
+      </h2>
+      <div class="review-tools">
+       <button aria-label="Review initial position" class="btn" id="first">
+        |←
+       </button>
+       <button aria-label="Previous position" class="btn" id="prev">
+        ←
+       </button>
+       <button aria-label="Next position" class="btn" id="next">
+        →
+       </button>
+       <button class="btn" id="live">
+        Live
+       </button>
+      </div>
+      <div aria-label="Recorded moves" aria-live="polite" class="moves" id="history">
+      </div>
+      <details>
+       <summary>
+        Engine connection
+       </summary>
+       <div class="engine-fields">
+        <div>
+         <label for="engine-url">
+          KataGo server URL
+         </label>
+         <input autocomplete="url" id="engine-url" placeholder="https://jenga-code.com/api/go" type="url"/>
+        </div>
+        <button class="btn" id="connect">
+         Connect / test server
+        </button>
+        <p class="micro" id="engine-status" role="status">
+         No engine configured. Local play is ready.
+        </p>
+       </div>
+      </details>
+      <details id="analysis-panel">
+       <summary>
+        Position analysis
+       </summary>
+       <p class="micro">
+        On-demand search. All evaluations are from Black’s perspective.
+       </p>
+       <button class="btn primary" id="analyse">
+        Analyse position
+       </button>
+       <label class="check">
+        <input id="ownership" type="checkbox"/>
+        Show ownership estimate
+       </label>
+       <div aria-live="polite" class="analysis-output" id="analysis-output">
+        Connect KataGo to inspect candidates and score estimates.
+       </div>
+      </details>
+     </aside>
+    </div>
+   </section>
+  </main>
+  <div class="toast" hidden="" id="toast" role="status">
+  </div>
+  <script src="js/app.js" type="module">
+  </script>
+  <footer class="site-footer">
+   <span>
+    Jenga-Code · Go Studio
+   </span>
+   <nav aria-label="Footer navigation">
+    <a href="/apps/">
+     All applications
+    </a>
+    <a href="/privacy/">
+     Privacy
+    </a>
+   </nav>
+  </footer>
+ </body>
+</html>
